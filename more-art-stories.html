@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MORE ART STORIES — Kuratorska selekcja dzieł sztuki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ecru:    #F5F1EB;
+      --off:     #EDEAE3;
+      --white:   #FAFAF7;
+      --ink:     #1A1916;
+      --warm-mid:#6B665E;
+      --warm-lt: #A09890;
+      --line:    #D8D2C8;
+      --accent:  #C4B9A8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--ecru);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── UTILITY ─── */
+    .label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3.5rem;
+      background: rgba(245,241,235,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.18rem;
+      padding: 0.55rem 0.9rem;
+      border: 0.75px solid var(--ink);
+      text-decoration: none;
+      color: var(--ink);
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    .logo:hover { opacity: 0.5; }
+
+    .logo-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.88rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 0.38rem;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      line-height: 1;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-center a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-center a:hover { color: var(--ink); }
+
+    .nav-contact {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 1px;
+      border-bottom: 1px solid var(--ink);
+      transition: opacity 0.2s;
+    }
+
+    .nav-contact:hover { opacity: 0.5; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      padding: 0 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 5rem;
+      padding-top: 100px;
+      position: relative;
+    }
+
+    .hero-logo-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.8rem;
+      text-align: center;
+    }
+
+    .logo-hero {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 3.5rem 5rem;
+      border: 0.75px solid var(--ink);
+      color: var(--ink);
+    }
+
+    .logo-hero-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .logo-hero-sub {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.5rem, 0.8vw, 0.7rem);
+      letter-spacing: 0.65em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .hero-kicker {
+      position: absolute;
+      top: calc(50% - 2rem);
+      right: 3.5rem;
+      writing-mode: vertical-rl;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    .hero-index {
+      position: absolute;
+      top: calc(50% - 2rem);
+      left: 3.5rem;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    .hero-rule {
+      width: 1px;
+      height: 80px;
+      background: var(--line);
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 1.4vw, 1.4rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      color: var(--warm-mid);
+      white-space: nowrap;
+    }
+
+    .hero-title em {
+      font-style: italic;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .hero-desc {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+      max-width: 360px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+
+    .cta-line {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .cta-text {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .cta-text:hover { color: var(--ink); }
+
+    .cta-arrow {
+      width: 48px;
+      height: 1px;
+      background: var(--ink);
+      position: relative;
+      transition: width 0.3s;
+    }
+
+    .cta-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0; top: -3px;
+      width: 6px; height: 6px;
+      border-right: 1px solid var(--ink);
+      border-top: 1px solid var(--ink);
+      transform: rotate(45deg);
+    }
+
+    a:hover .cta-arrow { width: 64px; }
+
+    .hero-scroll {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee {
+      background: var(--ink);
+      padding: 0.95rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: scroll 30s linear infinite;
+    }
+
+    .marquee-track span {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,241,235,0.4);
+      padding: 0 2.5rem;
+    }
+
+    .marquee-track span.sep {
+      color: rgba(245,241,235,0.15);
+      padding: 0;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .about-left {
+      padding: 7rem 3.5rem 7rem 3.5rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .about-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .about-eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--warm-lt);
+    }
+
+    .about-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.18;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .about-heading em { font-style: italic; }
+
+    .about-body {
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--warm-mid);
+    }
+
+    .about-body p + p { margin-top: 1.2rem; }
+
+    .about-body strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .about-right {
+      padding: 7rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--ecru);
+    }
+
+    .about-milena {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .about-milena-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .about-milena-role {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    .about-milena-bio {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      border: 1px solid var(--line);
+    }
+
+    .stat {
+      padding: 1.8rem;
+      background: var(--ecru);
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    /* ─── SERVICES ─── */
+    .services {
+      border-top: 1px solid var(--line);
+    }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .services-header-left {
+      padding: 5rem 3.5rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .services-header-right {
+      padding: 5rem 3.5rem;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .services-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .services-heading em { font-style: italic; }
+
+    .services-intro {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+      max-width: 380px;
+    }
+
+    .services-list {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 160px;
+      align-items: start;
+      padding: 3rem 3.5rem;
+      border-bottom: 1px solid var(--line);
+      gap: 3rem;
+      transition: background 0.25s;
+    }
+
+    .service-row:last-child { border-bottom: none; }
+    .service-row:hover { background: var(--off); }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--warm-lt);
+      padding-top: 0.2rem;
+    }
+
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+    }
+
+    .service-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+      text-align: right;
+      padding-top: 0.35rem;
+    }
+
+    /* ─── PROCESS ─── */
+    .process {
+      border-top: 1px solid var(--line);
+      background: var(--ink);
+      padding: 7rem 3.5rem;
+    }
+
+    .process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 5rem;
+    }
+
+    .process-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ecru);
+    }
+
+    .process-heading em { font-style: italic; }
+
+    .process-note {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(245,241,235,0.38);
+      max-width: 280px;
+      text-align: right;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .process-step {
+      background: var(--ink);
+      padding: 3rem 2.2rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      transition: background 0.3s;
+    }
+
+    .process-step:hover {
+      background: rgba(255,255,255,0.025);
+    }
+
+    .process-step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(245,241,235,0.3);
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+    }
+
+    .process-step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ecru);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .process-step-desc {
+      font-size: 0.83rem;
+      line-height: 1.75;
+      color: rgba(245,241,235,0.4);
+    }
+
+    /* ─── PULL QUOTE ─── */
+    .pullquote {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 7rem 3.5rem;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .pullquote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      font-weight: 300;
+      line-height: 0.7;
+      color: var(--line);
+    }
+
+    .pullquote-body {
+      max-width: 800px;
+    }
+
+    .pullquote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      letter-spacing: -0.005em;
+      margin-bottom: 2rem;
+    }
+
+    .pullquote-source {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-info {
+      padding: 7rem 3.5rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .contact-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-heading em { font-style: italic; }
+
+    .contact-lead {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--warm-mid);
+      margin-bottom: 4rem;
+      max-width: 380px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .detail-row:first-child { border-top: 1px solid var(--line); }
+
+    .detail-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+    }
+
+    .detail-value {
+      font-size: 0.9rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .detail-value:hover { opacity: 0.5; }
+
+    /* Form */
+    .contact-form-wrap {
+      padding: 7rem 3.5rem;
+      background: var(--ecru);
+    }
+
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-sub {
+      font-size: 0.8rem;
+      color: var(--warm-lt);
+      margin-bottom: 3rem;
+      letter-spacing: 0.05em;
+    }
+
+    .fgroup { margin-bottom: 1.2rem; }
+
+    .frow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-lt);
+      margin-bottom: 0.5rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    input::placeholder, textarea::placeholder { color: var(--accent); }
+
+    input:focus, textarea:focus, select:focus {
+      border-bottom-color: var(--ink);
+    }
+
+    textarea { resize: none; min-height: 90px; }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='none' stroke='%23A09890' stroke-width='1' d='M1 3l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+      cursor: pointer;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-top: 0.3rem;
+    }
+
+    .check-row input[type=checkbox] {
+      width: auto;
+      min-width: 14px;
+      height: 14px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--ink);
+      cursor: pointer;
+      border: none;
+    }
+
+    .check-row label {
+      text-transform: none;
+      letter-spacing: 0.02em;
+      font-size: 0.78rem;
+      color: var(--warm-mid);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .check-row label a { color: var(--ink); }
+
+    .form-btn {
+      width: 100%;
+      margin-top: 2rem;
+      padding: 1.05rem;
+      background: var(--ink);
+      color: var(--ecru);
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    .form-btn:hover { background: var(--warm-mid); }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--warm-lt);
+      text-align: center;
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr;
+      padding: 5rem 3.5rem;
+      gap: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ecru);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: rgba(245,241,235,0.35);
+    }
+
+    .footer-col-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,241,235,0.25);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: rgba(245,241,235,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ecru); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 3.5rem;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(245,241,235,0.22);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-socials a {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,241,235,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover { color: var(--ecru); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-center { display: none; }
+      .hero { padding: 0 2rem 4rem; }
+      .hero-kicker, .hero-index { display: none; }
+      .about, .contact { grid-template-columns: 1fr; }
+      .about-left { border-right: none; border-bottom: 1px solid var(--line); }
+      .service-row { grid-template-columns: 50px 1fr; gap: 1.5rem; }
+      .service-desc, .service-tag { display: none; }
+      .process-steps { grid-template-columns: repeat(2,1fr); }
+      .services-header { grid-template-columns: 1fr; }
+      .services-header-left { border-right: none; border-bottom: 1px solid var(--line); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .contact-info { border-right: none; border-bottom: 1px solid var(--line); }
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .hero { padding: 0 1.5rem 3.5rem; }
+      .hero-title { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2rem; }
+      .about-left, .contact-info, .contact-form-wrap,
+      .services-header-left, .services-header-right,
+      .process { padding: 4rem 1.5rem; }
+      .about-right { padding: 4rem 1.5rem; }
+      .pullquote { padding: 4rem 1.5rem; grid-template-columns: 1fr; }
+      .pullquote-mark { display: none; }
+      .service-row { padding: 2.2rem 1.5rem; }
+      .process-steps { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; padding: 3.5rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+      .frow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-line">More</span>
+    <span class="logo-line">Art</span>
+    <span class="logo-sub">Stories</span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#o-nas">O nas</a></li>
+    <li><a href="#uslugi">Usługi</a></li>
+    <li><a href="#podejscie">Podejście</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-contact">Napisz do nas</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-index">More Art Stories — Est. 2024</span>
+  <span class="hero-kicker">Kolekcje Prywatne · Selekcja Dzieł · Ekspozycje</span>
+
+  <div class="hero-logo-wrap">
+    <div class="logo-hero">
+      <span class="logo-hero-line">More</span>
+      <span class="logo-hero-line">Art</span>
+      <span class="logo-hero-sub">Stories</span>
+    </div>
+
+    <h1 class="hero-title">Sztuka, która <em>zamieszkuje</em> przestrzeń.</h1>
+  </div>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      Kuratorska selekcja dzieł dla kolekcjonerów, miłośników designu
+      i właścicieli premium przestrzeni. Każda praca dobrana z myślą
+      o miejscu, atmosferze i człowieku.
+    </p>
+    <div class="hero-cta">
+      <a href="#uslugi" class="cta-line" style="text-decoration:none;">
+        <span class="cta-text">Nasze usługi</span>
+        <span class="cta-arrow"></span>
+      </a>
+      <a href="#kontakt" class="cta-line" style="text-decoration:none;">
+        <span class="cta-text">Porozmawiajmy</span>
+        <span class="cta-arrow"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Selekcja Dzieł</span><span class="sep"> · </span>
+    <span>Kolekcje Prywatne</span><span class="sep"> · </span>
+    <span>Aranżacja Ekspozycji</span><span class="sep"> · </span>
+    <span>Art Advisory</span><span class="sep"> · </span>
+    <span>Przestrzenie Premium</span><span class="sep"> · </span>
+    <span>Kuratela</span><span class="sep"> · </span>
+    <span>Fine Art</span><span class="sep"> · </span>
+    <span>Selekcja Dzieł</span><span class="sep"> · </span>
+    <span>Kolekcje Prywatne</span><span class="sep"> · </span>
+    <span>Aranżacja Ekspozycji</span><span class="sep"> · </span>
+    <span>Art Advisory</span><span class="sep"> · </span>
+    <span>Przestrzenie Premium</span><span class="sep"> · </span>
+    <span>Kuratela</span><span class="sep"> · </span>
+    <span>Fine Art</span><span class="sep"> · </span>
+  </div>
+</div>
+
+<!-- O NAS -->
+<section class="about" id="o-nas">
+  <div class="about-left">
+    <div class="about-eyebrow">
+      <span class="label">O More Art Stories</span>
+    </div>
+    <h2 class="about-heading">
+      Kompleksowe wsparcie<br>
+      dla <em>miłośników sztuki</em>
+    </h2>
+    <div class="about-body">
+      <p>
+        MORE ART STORIES to agencja kuratorska specjalizująca się w selekcji dzieł sztuki
+        do przestrzeni prywatnych i komercyjnych. Działamy na styku estetyki, emocji
+        i głębokiej znajomości rynku sztuki.
+      </p>
+      <p>
+        Towarzyszymy klientom na każdym etapie — od pierwszej rozmowy o przestrzeni,
+        przez wyszukiwanie i selekcję prac, po <strong>profesjonalną aranżację ekspozycji</strong>
+        i długofalowy rozwój prywatnej kolekcji.
+      </p>
+      <p>
+        Obsługujemy <strong>kolekcjonerów prywatnych, fanów designu</strong> oraz właścicieli
+        rezydencji, apartamentów i przestrzeni hotelowych segmentu premium —
+        dla których sztuka jest nie dekoracją, lecz częścią tożsamości miejsca.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-right">
+    <div class="about-milena">
+      <div class="about-milena-name">Milena Paszkowska</div>
+      <div class="about-milena-role">Założycielka &amp; Główna Kuratorka</div>
+      <p class="about-milena-bio">
+        Milena Paszkowska od ponad dekady porusza się w świecie sztuki —
+        jako kuratorka, doradczyni kolekcjonerska i pasjonatka, która wierzy,
+        że właściwie dobrane dzieło zmienia charakter każdego wnętrza.
+        Pod jej kierunkiem MORE ART STORIES wyznacza nowy standard
+        w obszarze prywatnego art advisory w Polsce.
+      </p>
+    </div>
+
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Selekcji dzieł</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">80+</div>
+        <div class="stat-label">Kolekcji prywatnych</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Lat w świecie sztuki</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">PL / EU</div>
+        <div class="stat-label">Zasięg działania</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USŁUGI -->
+<section class="services" id="uslugi">
+  <div class="services-header">
+    <div class="services-header-left">
+      <p class="label" style="margin-bottom: 1.5rem;">Co robimy</p>
+      <h2 class="services-heading">
+        Sztuka dobrana<br>
+        z <em>precyzją</em><br>
+        i zamysłem
+      </h2>
+    </div>
+    <div class="services-header-right">
+      <p class="services-intro">
+        Każda usługa jest dostosowana do indywidualnych potrzeb klienta.
+        Nie handlujemy sztuką — doradzamy, selekcjonujemy i aranżujemy.
+        Z pełnym zaangażowaniem.
+      </p>
+    </div>
+  </div>
+
+  <div class="services-list">
+    <div class="service-row">
+      <span class="service-num">01</span>
+      <h3 class="service-name">Kuratorska Selekcja Dzieł</h3>
+      <p class="service-desc">
+        Dobieramy prace malarskie, grafiki, rzeźby i fotografie do konkretnego
+        wnętrza i charakteru klienta. Szukamy na krajowym i międzynarodowym
+        rynku sztuki — w galeriach, podczas aukcji i bezpośrednio u artystów.
+      </p>
+      <span class="service-tag">Selekcja · Advisory</span>
+    </div>
+    <div class="service-row">
+      <span class="service-num">02</span>
+      <h3 class="service-name">Aranżacja Ekspozycji</h3>
+      <p class="service-desc">
+        Profesjonalne rozmieszczenie dzieł w przestrzeni — z uwzględnieniem
+        oświetlenia, proporcji, nastroju i narracji wizualnej. Współpracujemy
+        z konserwatorami i monterami, dbając o każdy detal realizacji.
+      </p>
+      <span class="service-tag">Ekspozycja · Instalacja</span>
+    </div>
+    <div class="service-row">
+      <span class="service-num">03</span>
+      <h3 class="service-name">Rozwój Prywatnych Kolekcji</h3>
+      <p class="service-desc">
+        Długofalowe doradztwo kolekcjonerskie: strategia budowania kolekcji,
+        analiza rynku, due diligence prac, wyceny i zarządzanie dokumentacją.
+        Dla klientów, dla których kolekcja to dziedzictwo.
+      </p>
+      <span class="service-tag">Kolekcje · Inwestycje</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="podejscie">
+  <div class="process-header">
+    <h2 class="process-heading">
+      Jak pracujemy<br>
+      <em>z Tobą</em>
+    </h2>
+    <p class="process-note">
+      Każde zaangażowanie zaczyna się od słuchania. Poznajemy przestrzeń,
+      człowieka i historię, zanim zaproponujemy pierwsze dzieło.
+    </p>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="process-step-num">— 01</div>
+      <h3 class="process-step-title">Rozmowa wstępna</h3>
+      <p class="process-step-desc">
+        Poznajemy Ciebie, przestrzeń i intencję. Omawiamy styl, preferencje,
+        budżet i to, jak sztuka ma pracować w Twoim życiu.
+      </p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">— 02</div>
+      <h3 class="process-step-title">Analiza &amp; Research</h3>
+      <p class="process-step-desc">
+        Przeprowadzamy szczegółowy research rynku. Szukamy dzieł, które
+        odpowiadają na Twoje potrzeby estetyczne i spełniają wymogi przestrzeni.
+      </p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">— 03</div>
+      <h3 class="process-step-title">Selekcja &amp; Prezentacja</h3>
+      <p class="process-step-desc">
+        Prezentujemy starannie wyselekcjonowane propozycje wraz z kontekstem
+        artystycznym, historią pracy i wizualizacją w docelowej przestrzeni.
+      </p>
+    </div>
+    <div class="process-step">
+      <div class="process-step-num">— 04</div>
+      <h3 class="process-step-title">Realizacja &amp; Opieka</h3>
+      <p class="process-step-desc">
+        Koordynujemy zakup, transport, instalację i dokumentację. Pozostajemy
+        do dyspozycji jako opiekun kolekcji na lata.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pullquote">
+  <div class="pullquote-mark">"</div>
+  <div class="pullquote-body">
+    <blockquote class="pullquote-text">
+      Sztuka w przestrzeni prywatnej to nie ornament —
+      to wyraz tożsamości, smaku i historii człowieka,
+      który w tej przestrzeni żyje.
+    </blockquote>
+    <p class="pullquote-source">Milena Paszkowska — Założycielka MORE ART STORIES</p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact" id="kontakt">
+  <div class="contact-info">
+    <p class="label" style="margin-bottom: 1.8rem;">Skontaktuj się</p>
+    <h2 class="contact-heading">
+      Zacznijmy od<br>
+      <em>rozmowy</em>
+    </h2>
+    <p class="contact-lead">
+      Napisz do nas — opowiedz o przestrzeni, której szukasz sztuki,
+      lub o kolekcji, którą chcesz rozwinąć. Odpiszemy w ciągu 48 godzin.
+    </p>
+
+    <div class="contact-details">
+      <div class="detail-row">
+        <span class="detail-label">E-mail</span>
+        <a class="detail-value" href="mailto:hello@moreartstories.pl">hello@moreartstories.pl</a>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Telefon</span>
+        <a class="detail-value" href="tel:+48500000000">+48 500 000 000</a>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Instagram</span>
+        <a class="detail-value" href="#">@moreartstories</a>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Warszawa</span>
+        <span class="detail-value">ul. Artystyczna 12</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap">
+    <h3 class="form-heading">Napisz do nas</h3>
+    <p class="form-sub">Odpiszemy w ciągu 48 godzin roboczych</p>
+
+    <form onsubmit="handleSubmit(event)">
+      <div class="frow">
+        <div class="fgroup">
+          <label for="fn">Imię</label>
+          <input type="text" id="fn" placeholder="Anna" required />
+        </div>
+        <div class="fgroup">
+          <label for="ln">Nazwisko</label>
+          <input type="text" id="ln" placeholder="Kowalska" required />
+        </div>
+      </div>
+
+      <div class="fgroup">
+        <label for="em">Adres e-mail</label>
+        <input type="email" id="em" placeholder="anna@firma.pl" required />
+      </div>
+
+      <div class="fgroup">
+        <label for="topic">Czego dotyczy zapytanie?</label>
+        <select id="topic">
+          <option value="" disabled selected>Wybierz temat</option>
+          <option>Selekcja dzieł do wnętrza</option>
+          <option>Aranżacja ekspozycji</option>
+          <option>Rozwój prywatnej kolekcji</option>
+          <option>Inne / Pytanie ogólne</option>
+        </select>
+      </div>
+
+      <div class="fgroup">
+        <label for="msg">Wiadomość</label>
+        <textarea id="msg" placeholder="Opowiedz nam o przestrzeni, kolekcji lub projekcie…" required></textarea>
+      </div>
+
+      <div class="fgroup">
+        <div class="check-row">
+          <input type="checkbox" id="rodo" required />
+          <label for="rodo">
+            Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie
+            z <a href="#">Polityką Prywatności</a> w celu udzielenia odpowiedzi.
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="form-btn">Wyślij wiadomość</button>
+      <p class="form-note">Twoje dane są bezpieczne i nie są udostępniane osobom trzecim.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">More Art Stories</div>
+      <p class="footer-tagline">
+        Kuratorska selekcja dzieł sztuki.<br>
+        Kolekcje prywatne · Ekspozycje · Art Advisory.<br>
+        Warszawa, Polska.
+      </p>
+    </div>
+    <div>
+      <p class="footer-col-label">Usługi</p>
+      <ul class="footer-links">
+        <li><a href="#uslugi">Selekcja dzieł</a></li>
+        <li><a href="#uslugi">Aranżacja ekspozycji</a></li>
+        <li><a href="#uslugi">Kolekcje prywatne</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-label">Firma</p>
+      <ul class="footer-links">
+        <li><a href="#o-nas">O nas</a></li>
+        <li><a href="#podejscie">Podejście</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#">Polityka Prywatności</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 MORE ART STORIES. Wszelkie prawa zastrzeżone.</span>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-btn');
+    btn.textContent = 'Wysyłanie…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Wiadomość wysłana';
+      btn.style.background = '#5A7A6A';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Wyślij wiadomość';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    }, 1200);
+  }
+</script>
+
+</body>
+</html>
